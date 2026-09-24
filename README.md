@@ -2,6 +2,8 @@
 
 Convert images into customizable ASCII art in the browser.
 
+[Use the tool](https://image-toascii.yasir-ali.com/)
+
 ![Image to ascii editor](public/image.png)
 
 ## Run locally
