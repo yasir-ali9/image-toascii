@@ -7,7 +7,7 @@ export function Header({ onCollapse }: HeaderProps) {
   return (
     <div className="flex h-[37px] shrink-0 items-center justify-between border-b border-bd-50 bg-bk-40 px-2 text-[10px] text-fg-60">
       <span className="flex items-center whitespace-nowrap">
-        <span className="cursor-default rounded px-1 py-0.5 text-[11px] font-medium text-fg-50 transition-colors hover:bg-bk-30 hover:text-fg-30">Image to @5c!i</span>
+        <span className="cursor-default rounded px-1 py-0.5 text-[11px] font-medium text-fg-50 transition-colors hover:bg-bk-30 hover:text-fg-30">Convert pixels to text</span>
       </span>
       <button
         aria-label="Collapse panels"
