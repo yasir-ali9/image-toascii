@@ -1,0 +1,106 @@
+import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
+
+export type ContextMenuItem = {
+  disabled?: boolean
+  label?: string
+  onSelect?: () => void
+  separator?: boolean
+  submenu?: ContextMenuItem[]
+}
+
+type ContextMenuProps = {
+  isOpen: boolean
+  items: ContextMenuItem[]
+  onClose: () => void
+  position: { x: number; y: number }
+}
+
+type MenuItemsProps = {
+  items: ContextMenuItem[]
+  onClose: () => void
+}
+
+// Render one menu level and its optional hover-driven submenu.
+function MenuItems({ items, onClose }: MenuItemsProps) {
+  // Run an enabled leaf action before closing every visible menu level.
+  const select = (item: ContextMenuItem) => {
+    if (item.disabled || item.submenu) return
+    item.onSelect?.()
+    onClose()
+  }
+
+  return (
+    <>
+      {items.map((item, index) => {
+        if (item.separator) return <div className="my-1 border-t border-bd-50" key={`separator-${index}`} />
+
+        return (
+        <div className="group relative" key={item.label}>
+          <button
+            className={`flex h-7 w-full items-center justify-between gap-5 rounded px-2 text-left text-[11px] ${
+              item.disabled ? 'cursor-not-allowed text-fg-70' : 'cursor-pointer text-fg-50 hover:bg-bk-30'
+            }`}
+            disabled={item.disabled}
+            onClick={() => select(item)}
+            type="button"
+          >
+            <span>{item.label}</span>
+            {item.submenu ? (
+              <svg aria-hidden="true" className="text-fg-60" height="11" viewBox="0 0 12 12" width="11">
+                <path d="m4.5 3 3 3-3 3" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2" />
+              </svg>
+            ) : null}
+          </button>
+          {item.submenu ? (
+            <div className="invisible absolute left-full top-0 z-10 ml-1 min-w-32 rounded-lg border border-bd-50 bg-bk-40 p-1 shadow-lg group-hover:visible">
+              <MenuItems items={item.submenu} onClose={onClose} />
+            </div>
+          ) : null}
+        </div>
+        )
+      })}
+    </>
+  )
+}
+
+// Render a portal context menu that supports nested actions.
+export function ContextMenu({ isOpen, items, onClose, position }: ContextMenuProps) {
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  // Close the menu from pointer input or Escape outside the menu surface.
+  useEffect(() => {
+    if (!isOpen) return
+
+    // Close only when pointer input lands outside the current menu tree.
+    const closeOutside = (event: PointerEvent) => {
+      if (!menuRef.current?.contains(event.target as Node)) onClose()
+    }
+
+    // Close the open menu with standard keyboard dismissal.
+    const closeEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+    }
+
+    document.addEventListener('pointerdown', closeOutside)
+    document.addEventListener('keydown', closeEscape)
+    return () => {
+      document.removeEventListener('pointerdown', closeOutside)
+      document.removeEventListener('keydown', closeEscape)
+    }
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
+  return createPortal(
+    <div
+      ref={menuRef}
+      className="fixed z-[100] min-w-36 rounded-lg border border-bd-50 bg-bk-40 p-1 shadow-lg"
+      role="menu"
+      style={{ left: position.x, top: position.y }}
+    >
+      <MenuItems items={items} onClose={onClose} />
+    </div>,
+    document.body,
+  )
+}

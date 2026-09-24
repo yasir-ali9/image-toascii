@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --bk-20: 199, 199, 199; /* #c7c7c7 */
+  --bk-30: 212, 212, 212; /* #d4d4d4 */
+  --bk-40: 224, 224, 224; /* #e0e0e0 */
+  --bk-50: 242, 242, 242; /* #f2f2f2 */
+  --bk-60: 249, 249, 249; /* #f9f9f9 */
+  --bk-70: 250, 250, 250; /* #fafafa */
+  --bk-80: 255, 255, 255; /* #ffffff */
+
+  --bd-50: 216, 216, 216; /* #d8d8d8 */
+  --bd-60: 200, 200, 200; /* #c8c8c8 */
+
+  --fg-30: 24, 24, 24; /* #181818 */
+  --fg-40: 31, 31, 31; /* #1f1f1f */
+  --fg-50: 49, 49, 49; /* #313131 */
+  --fg-60: 85, 85, 85; /* #555555 */
+  --fg-70: 114, 114, 114; /* #727272 */
+
+  --ac-01: 36, 96, 183; /* #2460b7 */
+  --ac-02: 70, 125, 205; /* #467dcd */
+
+  font-family: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-optical-sizing: auto;
+  color: rgb(var(--fg-50));
+  background: rgb(var(--bk-70));
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] {
+  --bk-20: 81, 81, 81; /* #515151 */
+  --bk-30: 66, 66, 66; /* #424242 */
+  --bk-40: 55, 55, 55; /* #373737 */
+  --bk-50: 42, 42, 42; /* #2a2a2a */
+  --bk-60: 30, 30, 30; /* #1e1e1e */
+  --bk-70: 24, 24, 24; /* #181818 */
+  --bk-80: 18, 18, 18; /* #121212 */
+
+  --bd-50: 60, 60, 60; /* #3c3c3c */
+  --bd-60: 75, 75, 75; /* #4b4b4b */
+
+  --fg-30: 255, 255, 255; /* #ffffff */
+  --fg-40: 249, 249, 249; /* #f9f9f9 */
+  --fg-50: 228, 228, 228; /* #e4e4e4 */
+  --fg-60: 178, 178, 178; /* #b2b2b2 */
+  --fg-70: 140, 140, 140; /* #8c8c8c */
+}
+
+@theme inline {
+  --color-bk-20: rgb(var(--bk-20));
+  --color-bk-30: rgb(var(--bk-30));
+  --color-bk-40: rgb(var(--bk-40));
+  --color-bk-50: rgb(var(--bk-50));
+  --color-bk-60: rgb(var(--bk-60));
+  --color-bk-70: rgb(var(--bk-70));
+  --color-bk-80: rgb(var(--bk-80));
+
+  --color-bd-50: rgb(var(--bd-50));
+  --color-bd-60: rgb(var(--bd-60));
+
+  --color-fg-30: rgb(var(--fg-30));
+  --color-fg-40: rgb(var(--fg-40));
+  --color-fg-50: rgb(var(--fg-50));
+  --color-fg-60: rgb(var(--fg-60));
+  --color-fg-70: rgb(var(--fg-70));
+
+  --color-ac-01: rgb(var(--ac-01));
+  --color-ac-02: rgb(var(--ac-02));
+}
+
+* {
+  box-sizing: border-box;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: rgb(var(--bk-70));
+  overflow: hidden;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgb(var(--ac-01));
+  outline-offset: 2px;
+}
+
+::selection {
+  color: #dcedff;
+  background: #235499;
+}
+
+code,
+pre,
+kbd {
+  font-family: monospace;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--bk-30));
+  border-radius: 99px;
+  border: 1px solid rgb(var(--bk-50));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--bk-20));
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgb(var(--bk-30));
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--bk-20));
+}
