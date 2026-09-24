@@ -4,7 +4,7 @@ Convert images into customizable ASCII art in the browser.
 
 [Use the tool](https://pixels-to-text.yasir-ali.com/)
 
-![Image to ascii editor](public/image.png)
+![Image to ascii editor](public/image.png?v=c22369a)
 
 ## Run locally
 
